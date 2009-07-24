@@ -20,9 +20,11 @@ src_unpack() {
 }
 
 src_compile() {
+	econf --disable-nss
 	emake -j1
 }
 
 src_install() {
 	emake DESTDIR="${D}" install
+	newinitd "${FILESDIR}"/corosync.initd corosync
 }

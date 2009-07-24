@@ -1,0 +1,22 @@
+#!/sbin/runscript
+# Copyright 1999-2007 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License, v2 or later
+
+AISEXEC=/usr/sbin/corosync
+
+depend() {
+    need net
+    use logger dns
+}
+
+start() {
+    ebegin "Starting ${SVCNAME}"
+    start-stop-daemon --start --exec ${AISEXEC}
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping ${SVCNAME}"
+    start-stop-daemon --stop --exec ${AISEXEC}
+    eend $?
+}
