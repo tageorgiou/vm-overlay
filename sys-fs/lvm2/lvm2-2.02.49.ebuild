@@ -15,9 +15,7 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
 
 IUSE="readline static clvm cman lvm1 selinux"
 
-DEPEND="!sys-fs/device-mapper
-	clvm? ( =sys-cluster/dlm-2*
-		cman? ( =sys-cluster/cman-2* ) )"
+DEPEND="!sys-fs/device-mapper"
 
 RDEPEND="${DEPEND}
 	!sys-fs/lvm-user
@@ -35,6 +33,7 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}-dmeventd.patch
 	epatch "${FILESDIR}"/lvm.conf-2.02.45.patch
+	epatch "${FILESDIR}"/lvm2-clvmd-openais-fix-include.patch
 #	epatch "${FILESDIR}"/${P}-device-mapper-export-format.patch
 }
 
@@ -82,7 +81,7 @@ src_compile() {
 		# gulm is removed now, now dual-state:
 		# cman, none
 		# all still exists, but is not needed
-		local clvmd="corosync"
+		local clvmd="openais"
 		#clvmd="${clvmd/cmangulm/all}"
 		[ -z "${clvmd}" ] && clvmd="none"
 		myconf="${myconf} --with-clvmd=${clvmd}"
