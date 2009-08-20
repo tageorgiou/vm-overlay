@@ -81,7 +81,7 @@ src_compile() {
 		# gulm is removed now, now dual-state:
 		# cman, none
 		# all still exists, but is not needed
-		local clvmd="openais"
+		local clvmd="corosync"
 		#clvmd="${clvmd/cmangulm/all}"
 		[ -z "${clvmd}" ] && clvmd="none"
 		myconf="${myconf} --with-clvmd=${clvmd}"
